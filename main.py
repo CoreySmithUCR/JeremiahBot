@@ -29,4 +29,4 @@ async def on_message(message):
         
 
 
-process.env.DISCORD_JERETOKEN
+client.login(os.getenv('DISCORD_JERETOKEN'))
