@@ -5,7 +5,7 @@ import re
 
 client = discord.Client()
 doodie = '^![Dd]\s{0,}?[Nn&]\s{0,}?[Dd]$'
-dndDays = [int(1), int(6)]
+dndDays = [int(1), int(5)]
 
 
 @client.event
