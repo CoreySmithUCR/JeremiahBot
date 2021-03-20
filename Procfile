@@ -1,1 +1,0 @@
-worker: python F:\ projects \ JeremiahBot
