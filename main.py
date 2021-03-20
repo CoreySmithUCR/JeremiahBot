@@ -20,6 +20,8 @@ async def on_message(message):
     if re.match(doodie, message.content):
       if str(message.author) == "Corey#5281":
         await message.channel.send('Master why have you called on me again')
+      if str(message.author) == "Glacies#1660":
+        await message.channel.send("Thank you Owlek, you always brighten my day with your questions, and for that I am forever in your debt, also")
       today = datetime.datetime.today().weekday()
       if today in dndDays:
         await message.channel.send('Hold onto your butts, There is DND today')
