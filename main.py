@@ -40,14 +40,14 @@ async def on_message(message):
         await message.channel.send("Why have you summoned me today Owlek?")
       today = get_pst_time().weekday()
       if today in dndDays:
-        await message.channel.send('Hold onto your butts, There is DND today')
+        await message.channel.send('Get Hype, There is DND today')
       if today == 1:
         await message.channel.send("We are starting at 8:30 today")
       if today == 5:
         await message.channel.send("We are starting at 9:30 today")
         
       else:
-        await message.channel.send("There is no DND today, I'm also slightly disappointed you asked.")
+        await message.channel.send("There is no DND today, now I must get back to my business in Saltmarsh.")
       
 
 # Programmers: Corey
