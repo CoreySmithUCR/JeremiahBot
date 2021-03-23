@@ -35,9 +35,9 @@ async def on_message(message):
         return
     if re.match(doodie, message.content):
       if str(message.author) == "Corey#5281":
-        await message.channel.send('Master why have you called on me again')
+        await message.channel.send('Dude why have you called on me again')
       if str(message.author) == "Glacies#1660":
-        await message.channel.send("Why have you summoned me today Owlek?")
+        await message.channel.send("Why have you summoned me today?")
       today = get_pst_time().weekday()
       if today in dndDays:
         await message.channel.send('Get Hype, There is DND today')
