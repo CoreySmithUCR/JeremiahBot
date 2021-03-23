@@ -54,4 +54,4 @@ async def on_message(message):
 # Contributor  Alex
 # Contributor  Alec
 
-async client.login("DISCORD_JERETOKEN")
+async client.run("DISCORD_JERETOKEN")
