@@ -41,10 +41,10 @@ async def on_message(message):
       today = get_pst_time().weekday()
       if today in dndDays:
         await message.channel.send('Get Hype, There is DND today')
-      if today == 1:
+        if today == 1:
         await message.channel.send("We are starting at 8:30 today")
           break
-      if today == 5:
+        if today == 5:
         await message.channel.send("We are starting at 9:30 today")
           break
         
