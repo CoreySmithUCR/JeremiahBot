@@ -39,7 +39,8 @@ async def on_message(message):
       if str(message.author) == "Glacies#1660":
         await message.channel.send("Why have you summoned me today?")
       today = get_pst_time().weekday()
-      if today in dndDays:
+      
+      while today in dndDays:
         await message.channel.send('Get Hype, There is DND today')
         if today == 1:
           await message.channel.send("We are starting at 8:30 today")
