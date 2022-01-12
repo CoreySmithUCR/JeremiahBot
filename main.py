@@ -38,6 +38,8 @@ async def on_message(message):
         await message.channel.send('Dude why have you called on me again')
       if str(message.author) == "Glacies#1660":
         await message.channel.send("Why have you summoned me today?")
+      if str(message.author) == "piece#3523": 
+        await message.channel.send("<t:1652394352>")
       today = get_pst_time().weekday()
       
       while today in dndDays:
