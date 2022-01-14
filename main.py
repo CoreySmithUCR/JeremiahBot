@@ -1,62 +1,68 @@
 import discord
 import os
 import re
-from datetime import datetime
+import time
+import datetime
 from pytz import timezone
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
 import pytz
 
 
-
 client = discord.Client()
-doodie = '^![Dd]\s{0,}?[Nn&]\s{0,}?[Dd]$'
-dndDays = [int(1), int(5)]
+#regex for the !DnD command
+dnDCommandregex = '^![Dd]\s{0,}?[Nn&]\s{0,}?[Dd]$'
 
+#a map that defines the days & time for games
+dnDschedule = {
+  "Tuesday": "20:30", 
+  "Saturday": "21:00"
+}
 
-def get_pst_time():
-  print("starting get_pst_time")
-  date_format='%m_%d_%Y_%H_%M_%S_%Z'
-  date = datetime.now(tz=pytz.utc)
-  date = date.astimezone(timezone('US/Pacific'))
-  pstDateTime=date.strftime(date_format)
-  print(pstDateTime)
-  print(date.weekday())
-  return date;
+def getNextGameDateTime():
+  onDay = lambda dt, day: dt + datetime.timedelta(days=(day-dt.weekday())%7)
+  date = datetime.datetime.now().astimezone(timezone('US/Pacific'))
+  todaysWeekday = date.weekday()
+  for day in dnDschedule:
+    scheduledWeekday = time.strptime(day, "%A").tm_wday
+    if scheduledWeekday >= todaysWeekday:
+      timeSplit = dnDschedule[day].split(":")
+      return onDay(date, scheduledWeekday).replace(hour=int(timeSplit[0]), minute=int(timeSplit[1]), second = 0)
 
+def getUnixTime(dateTime):
+  return int(dateTime.timestamp())
 
+#async def roleCall():
+  #await message.channel.send("Please emote if you are in for D&D tonight.")
 
 @client.event
 async def on_ready():
     print('Logged in and ready to go')
+
+#@client.event
+#async def Rolecall():
+  #scheduler = AsyncIOScheduler()
+  #if today in dndDays:
+    #if today ==5:
+          #scheduler.add_job(roleCall, CronTrigger(second="0, 10, 20, 30, 40, 50")) 
 
 
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
-    if re.match(doodie, message.content):
+    if re.match(dnDCommandregex, message.content):
       if str(message.author) == "Corey#5281":
-        await message.channel.send('Dude why have you called on me again')
+        await message.channel.send('Master why have you called on me again')
       if str(message.author) == "Glacies#1660":
-        await message.channel.send("Why have you summoned me today?")
-      if str(message.author) == "piece#3523": 
-        await message.channel.send("<t:1652394352>")
-      today = get_pst_time().weekday()
+        await message.channel.send("Why have you summoned me today Owlek?")
+      #if str(message.author) == "piece#3523": 
+        #await message.channel.send("Good to see you again")
+      nextGameDateTime = getNextGameDateTime()
+      await message.channel.send("The next game will be at <t:{0}>".format(getUnixTime(nextGameDateTime)))
       
-      while today in dndDays:
-        await message.channel.send('Get Hype, There is DND today')
-        if today == 1:
-          await message.channel.send("We are starting at 8:30 today")
-          break
-        if today == 5:
-          await message.channel.send("We are starting at 9:30 today")
-          break
-        
-      else:
-        await message.channel.send("There is no DND today, now I must get back to my business in Saltmarsh.")
-      
-
 # Programmers: Corey
 # Contributor  Alex
 # Contributor  Alec
 
-client.run(os.getenv("DISCORD_JERETOKEN"))
+client.run(os.getenv('TOKEN'))
