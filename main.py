@@ -53,7 +53,7 @@ async def on_message(message):
         return
     if re.match(dnDCommandregex, message.content):
       if str(message.author) == "Corey#5281":
-        await message.channel.send('Master why have you called on me again')
+        await message.channel.send('Good to see you again')
       if str(message.author) == "Glacies#1660":
         await message.channel.send("Why have you summoned me today Owlek?")
       #if str(message.author) == "piece#3523": 
